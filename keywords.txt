@@ -1,0 +1,5 @@
+Led_Functions   KEYWORD1
+writeHex    KEYWORD2
+r   KEYWORD2
+g   KEYWORD2
+b   KEYWORD2
