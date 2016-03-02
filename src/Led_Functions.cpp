@@ -11,7 +11,7 @@ Led_Functions::Led_Functions(String hexString)
         rgb1[1] = rgb[1];
         rgb1[2] = rgb[2];
     }
-    
+
 }
 
 void Led_Functions::toHexString(String hexString2)
@@ -24,6 +24,38 @@ void Led_Functions::toHexString(String hexString2)
         rgb2[2] = rgb[2];
     }
 }
+
+// Log fade functions
+float Led_Functions::getRval(int intervals, int ledMax) {
+  float rVal;
+  rVal = (intervals * log10(2)) / (log10(ledMax));
+  return rVal;
+}
+
+int Led_Functions::getBrightness(int interval, float rVal) {
+  int brightVal = 0;
+  brightVal = pow(2, (interval/rVal)) - 1;
+  return brightVal;
+}
+void Led_Functions::fadeSetup(int steps, int ledRed, int ledGreen, int ledBlue) {
+  rgbR[0] = getRval(steps, ledRed);
+  rgbR[1] = getRval(steps, ledGreen);
+  rgbR[2] = getRval(steps, ledBlue);
+}
+uint32_t Led_Functions::rgbGetBrightness(int interval) {
+  rgb1[0] = getBrightness(interval, rgbR[0]);
+  rgb1[1] = getBrightness(interval, rgbR[1]);
+  rgb1[2] = getBrightness(interval, rgbR[2]);
+  uint32_t c = Color(rgb1[0],rgb1[1],rgb1[2]);
+  return c;
+}
+
+uint32_t Led_Functions::Color(uint8_t r, uint8_t g, uint8_t b) {
+  return ((uint32_t)r << 16) | ((uint32_t)g <<  8) | b;
+}
+
+// End of Log fade functions
+
 
 int Led_Functions::r2()
 {
