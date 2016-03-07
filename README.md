@@ -28,9 +28,22 @@ turquoise.fadeSetup(intervals);
 ```
 ### Loop
 Loop through the generated values for fading
+
+#### Get uint32_t
 ```arduino
 
 for (int i=0; i < intervals; i++) {
 	uint32_t color = turquoise.rgbGetBrightness(i);
+}
+```
+
+#### Get RGB values
+```arduino
+for (int i=0; i < intervals; i++) {
+	 turquoise.rgbGetBrightness(i);
+
+	 int red = turquoise.r();
+	 int green = turquoise.g();
+	 int blue = turquoise.b();
 }
 ```
