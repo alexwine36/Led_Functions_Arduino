@@ -6,6 +6,7 @@
 #define PIN 6
 
 int pix = 20;
+int intervals = 200;
 
 // Parameter 1 = number of pixels in strip
 // Parameter 2 = Arduino pin number (most are valid)
@@ -19,7 +20,15 @@ Adafruit_NeoPixel strip = Adafruit_NeoPixel(pix, PIN, NEO_GRB + NEO_KHZ800);
 
 #include <Led_Functions.h>
 
-Led_Functions goal("FFE7BA");
+/*
+ * Potential Warm Light Colors:
+ * E0C585
+ * FFE066
+ * FFD166
+ * F5D03D
+ */
+
+Led_Functions goal("05D03D");
 
 void setup() {
   strip.begin();
@@ -28,11 +37,11 @@ void setup() {
   Serial.println(goal.r());
   Serial.println(goal.g());
   Serial.println(goal.b());
-  goal.fadeSetup(100);
+  goal.fadeSetup(200);
 
 }
 void loop() {
-  for (int i = 0; i < 100; i++) {
+  for (int i = 0; i < intervals; i++) {
     uint32_t color = goal.rgbGetBrightness(i);
 //    Serial.println(rgb1[0]);
 //    Serial.println(color, HEX);
@@ -40,9 +49,9 @@ void loop() {
       strip.setPixelColor(f, color);
     }
     strip.show();
-    delay(25);
+    delay(10);
   }
-    for (int i = 100; i > 0; i--) {
+    for (int i = intervals; i > 0; i--) {
     uint32_t color = goal.rgbGetBrightness(i);
 //    Serial.println(rgb1[0]);
 //    Serial.println(color, HEX);
@@ -50,6 +59,6 @@ void loop() {
       strip.setPixelColor(f, color);
     }
     strip.show();
-    delay(25);
+    delay(10);
   }
 }
